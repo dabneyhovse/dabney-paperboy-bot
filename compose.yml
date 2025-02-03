@@ -1,0 +1,14 @@
+services:
+  gambler:
+    build: 
+      context: ./gambler
+      dockerfile: ./Dockerfile
+    container_name: gambler
+    volumes:
+      - ./gambler:/app/shared
+      - gambler_data:/app/data
+    env_file:
+      - .env
+
+volumes:
+  gambler_data:

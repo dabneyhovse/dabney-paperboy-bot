@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "gambler"
+version = "0.1.0"
+description = ""
+authors = ["Sammy Hajhamid <sh@pepsi.pw>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+python-telegram-bot = "^21.9"
+python-dotenv = "^1.0.1"
+sqlitedict = "^2.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
