@@ -17,4 +17,4 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock /app/
 RUN poetry install --no-root
 
-CMD ["poetry", "run", "python", "/app/shared/gambler/main.py"]
+CMD ["poetry", "run", "python", "/app/shared/paperboy/main.py"]

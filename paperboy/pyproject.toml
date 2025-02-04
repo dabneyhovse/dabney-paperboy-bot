@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "gambler"
+name = "paperboy"
 version = "0.1.0"
 description = ""
 authors = ["Sammy Hajhamid <sh@pepsi.pw>"]
@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.13"
 python-telegram-bot = "^21.9"
 python-dotenv = "^1.0.1"
-sqlitedict = "^2.1.0"
+pycups = "^2.0.4"
 
 
 [build-system]

@@ -108,6 +108,17 @@ files = [
 all = ["flake8 (>=7.1.1)", "mypy (>=1.11.2)", "pytest (>=8.3.2)", "ruff (>=0.6.2)"]
 
 [[package]]
+name = "pycups"
+version = "2.0.4"
+description = "Python bindings for libcups"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "pycups-2.0.4.tar.gz", hash = "sha256:843e385c1dbf694996ca84ef02a7f30c28376035588f5fbeacd6bae005cf7c8d"},
+]
+
+[[package]]
 name = "python-dotenv"
 version = "1.0.1"
 description = "Read key-value pairs from a .env file and set them as environment variables"
@@ -174,4 +185,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.13"
-content-hash = "94d597af03e3bba8b13cacbf83153341e1e02aa8d054edacbc01dd8702bc58e2"
+content-hash = "ffcc8bd71bc453c62bb0ca1532ea2a8591e1d6a7248b642ec796a192f3853f0a"

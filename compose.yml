@@ -1,14 +1,14 @@
 services:
-  gambler:
+  paperboy:
     build: 
-      context: ./gambler
+      context: ./paperboy
       dockerfile: ./Dockerfile
-    container_name: gambler
+    container_name: paperboy
     volumes:
-      - ./gambler:/app/shared
-      - gambler_data:/app/data
+      - ./paperboy:/app/shared
+      - paperboy_data:/app/data
     env_file:
       - .env
 
 volumes:
-  gambler_data:
+  paperboy_data:
