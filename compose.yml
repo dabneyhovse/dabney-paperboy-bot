@@ -6,9 +6,5 @@ services:
     container_name: paperboy
     volumes:
       - ./paperboy:/app/shared
-      - paperboy_data:/app/data
     env_file:
       - .env
-
-volumes:
-  paperboy_data:
