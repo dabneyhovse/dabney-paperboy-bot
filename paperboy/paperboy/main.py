@@ -9,6 +9,7 @@ from telegram import (
     InlineKeyboardMarkup,
 )
 from telegram.ext import (
+    Application,
     ApplicationBuilder,
     CommandHandler,
     MessageHandler,
@@ -146,25 +147,33 @@ async def handle_printer_selection(
     )
 
 
-
-def main() -> None:
-    persistence = PicklePersistence("data")
-    app = ApplicationBuilder().token(BOT_TOKEN).arbitrary_callback_data(True).build()
-
+async def post_init(app: Application) -> None:
+    me = await app.bot.get_me()
     app.add_handler(CommandHandler("start", handle_start))
     app.add_handler(
         MessageHandler(
-            filters.Document.ALL & (filters.ChatType.PRIVATE | filters.Entity(MessageEntityType.MENTION)),
+            filters.Document.ALL & (filters.ChatType.PRIVATE | filters.Mention(me)),
             handle_dm_print,
         )
     )
     app.add_handler(
         MessageHandler(
-            filters.REPLY & filters.Entity(MessageEntityType.MENTION),
+            filters.REPLY & (filters.ChatType.PRIVATE | filters.Mention(me)),
             handle_reply_print,
         )
     )
     app.add_handler(CallbackQueryHandler(handle_printer_selection))
+
+
+def main() -> None:
+    app = (
+        ApplicationBuilder()
+        .token(BOT_TOKEN)
+        .arbitrary_callback_data(True)
+        .post_init(post_init)
+        .build()
+    )
+    app.bot
 
     app.run_polling()
 
