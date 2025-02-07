@@ -134,16 +134,18 @@ async def handle_printer_selection(
 
     await query.answer()
 
-    try:
         printer = data["printer"]  # type: ignore
+    try:
         job_id = await create_job(
-            printer["name"], data["data"], data["mime_type"], data["job_title"]  # type: ignore
-        )
-        await query.edit_message_text(
-            text=f"Document sent to {printer['name']}, {printer['data']['printer-location']} successfully. Job ID: {job_id}"  # type: ignore
+            printer["name"], data["document_data"], data["mime_type"], data["job_title"]  # type: ignore
         )
     except Exception as e:
         await query.edit_message_text(text=f"Failed to print document: {e}")
+        return
+    await query.edit_message_text(
+        text=f"Document sent to {printer['name']}, {printer['data']['printer-location']} successfully. Job ID: {job_id}"  # type: ignore
+    )
+
 
 
 def main() -> None:
