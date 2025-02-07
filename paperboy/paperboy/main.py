@@ -133,8 +133,7 @@ async def handle_printer_selection(
         return
 
     await query.answer()
-
-        printer = data["printer"]  # type: ignore
+    printer = data["printer"]  # type: ignore
     try:
         job_id = await create_job(
             printer["name"], data["document_data"], data["mime_type"], data["job_title"]  # type: ignore
