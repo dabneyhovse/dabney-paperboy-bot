@@ -154,7 +154,7 @@ def main() -> None:
     app.add_handler(CommandHandler("start", handle_start))
     app.add_handler(
         MessageHandler(
-            filters.Document.ALL & filters.ChatType.PRIVATE,
+            filters.Document.ALL & (filters.ChatType.PRIVATE | filters.Entity(MessageEntityType.MENTION)),
             handle_dm_print,
         )
     )
