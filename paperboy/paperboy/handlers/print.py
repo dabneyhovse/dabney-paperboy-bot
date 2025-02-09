@@ -101,12 +101,12 @@ async def handle_job_request_callback(
         case JobRequestCallbackType.SET_COPIES:
             req.copies = args[0]
         case JobRequestCallbackType.PRINT:
+            context.bot_data.pop(msg.message_id, None)
             try:
                 job_id = await req.create_job()  # throws if no printer
             except Exception as e:
                 await query.edit_message_text(text=f"Failed to print document: {e}")
                 return
-            context.bot_data.pop(msg.message_id, None)
             await query.edit_message_text(
                 text=(
                     f"Document sent to {req.printer.get_id()} successfully. The job ID is {job_id}."  # type: ignore
