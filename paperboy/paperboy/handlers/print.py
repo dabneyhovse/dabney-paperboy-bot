@@ -24,7 +24,7 @@ def generate_keyboard(job: JobRequest) -> InlineKeyboardMarkup:
         [
             [
                 InlineKeyboardButton(
-                    printer.get_id(),
+                    printer.get_short_id(),
                     callback_data=(JobRequestCallbackType.SET_PRINTER, printer),
                 )
                 for printer in get_printers()
@@ -68,8 +68,6 @@ async def handle_job_request(
     context.bot_data[msg.id] = job = JobRequest(
         None, media, format_job_name(media, author)
     )
-    print(msg.id)
-
     reply_markup = generate_keyboard(job)
 
     await msg.reply_text(
@@ -92,13 +90,12 @@ async def handle_job_request_callback(
 
     await query.answer()
 
-    req: JobRequest = context.bot_data.get(msg.id)  # type: ignore
-    print(req)
+    req: JobRequest = context.bot_data.get(msg.message_id)  # type: ignore
 
     match callback_type:
         case JobRequestCallbackType.CANCEL:
             await query.delete_message()
-            context.bot_data.pop(query.id, None)
+            context.bot_data.pop(msg.message_id, None)
             return
         case JobRequestCallbackType.SET_PRINTER:
             req.printer = args[0]
@@ -110,7 +107,7 @@ async def handle_job_request_callback(
             except Exception as e:
                 await query.edit_message_text(text=f"Failed to print document: {e}")
                 return
-            context.bot_data.pop(query.message.message_id, None)
+            context.bot_data.pop(msg.message_id, None)
             await query.edit_message_text(
                 text=(
                     f"Document sent to {req.printer.get_id()} successfully. The job ID is {job_id}."  # type: ignore
