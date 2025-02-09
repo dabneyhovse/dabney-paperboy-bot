@@ -14,10 +14,10 @@ from telegram.ext import (
     filters,
 )
 
-from paperboy.handlers.print import handle_print_request, handle_printer_selection
-from paperboy.handlers.start import handle_start
-from paperboy.media import extract_media
-from paperboy.printer import JobRequest, get_printers
+from .handlers.print import handle_print_request, handle_printer_selection
+from .handlers.start import handle_start
+from .media import extract_media
+from .printer import JobRequest, get_printers
 
 load_dotenv()
 
