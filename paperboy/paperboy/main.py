@@ -3,21 +3,17 @@ import os
 
 import cups
 from dotenv import load_dotenv
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Message, Update, User
 from telegram.ext import (
     Application,
     ApplicationBuilder,
     CallbackQueryHandler,
     CommandHandler,
-    ContextTypes,
     MessageHandler,
     filters,
 )
 
 from paperboy.handlers.print import handle_print_request, handle_printer_selection
 from paperboy.handlers.start import handle_start
-from paperboy.media import extract_media
-from paperboy.printer import JobRequest, get_printers
 
 load_dotenv()
 

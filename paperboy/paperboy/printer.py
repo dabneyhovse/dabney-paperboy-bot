@@ -11,20 +11,33 @@ class Printer:
     name: str
     location: str
 
+    PRINTER_ALIAS = {
+        "Love": "😍",
+        "Hope": "😊",
+        "Joy": "😄",
+        "Peace": "🙂",
+        "Apathy": "😶",
+    }
+
     def get_id(self) -> str:
-        return f"{self.name} ({self.location})"
+        return f"{self.PRINTER_ALIAS[self.name] if self.name in self.PRINTER_ALIAS else self.name}, {self.location}"
 
 
 class JobRequest:
-    printer: Printer
+    printer: Printer | None
     media: Media
+    copies: int = 1
+    name: str
 
-    def __init__(self, printer: Printer, file: Media, name: str) -> None:
+    def __init__(self, printer: Printer | None, file: Media, name: str) -> None:
         self.printer = printer
         self.media = file
         self.name = name
 
     async def create_job(self) -> int:
+        if not self.printer:
+            raise Exception("No printer selected")
+
         conn = cups.Connection()
         job_id = conn.createJob(self.printer.name, self.name, {})
         if not job_id:

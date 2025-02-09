@@ -21,16 +21,17 @@ async def handle_print_request(
     ):
         return
     logging.info("Received print request from %s for %s", author, media.name)
-    job_name = format_job_name(media, author)
+
+    context.bot_data[msg.id] = JobRequest(None, media, format_job_name(media, author))
 
     keyboard = [
         [
             InlineKeyboardButton(
                 printer.get_id(),
-                callback_data=JobRequest(printer, media, job_name),
+                callback_data=printer,
             )
+            for printer in get_printers()
         ]
-        for printer in get_printers()
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -50,12 +51,12 @@ async def handle_printer_selection(
 
     await query.answer()
     try:
-        job_id = await req.create_job()
+        job_id = await req.create_job()  # throws if no printer
     except Exception as e:
         await query.edit_message_text(text=f"Failed to print document: {e}")
         return
     await query.edit_message_text(
         text=(
-            f"Document sent to {req.printer.get_id()} successfully. The job ID is {job_id}."
+            f"Document sent to {req.printer.get_id()} successfully. The job ID is {job_id}."  # type: ignore
         )
     )
