@@ -50,7 +50,13 @@ class JobRequest:
             raise Exception("no printer selected!")
 
         conn = cups.Connection()
-        job_id = conn.createJob(self.printer.name, self.name, {})
+        job_id = conn.createJob(
+            self.printer.name,
+            self.name,
+            {
+                "copies": str(self.copies),
+            },
+        )
         if not job_id:
             raise Exception(f"Failed to create job: {cups.lastErrorString()}")
 
