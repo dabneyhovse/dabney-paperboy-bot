@@ -31,15 +31,15 @@ def generate_keyboard(job: JobRequest) -> InlineKeyboardMarkup:
             ],
             [
                 InlineKeyboardButton(
-                    "+1 Copy",
-                    callback_data=(JobRequestCallbackType.SET_COPIES, job.copies + 1),
-                ),
-                InlineKeyboardButton(
                     "-1 Copy",
                     callback_data=(
                         JobRequestCallbackType.SET_COPIES,
                         max(job.copies - 1, 0),
                     ),
+                ),
+                InlineKeyboardButton(
+                    "+1 Copy",
+                    callback_data=(JobRequestCallbackType.SET_COPIES, job.copies + 1),
                 ),
             ],
             [
