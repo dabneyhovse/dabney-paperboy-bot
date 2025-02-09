@@ -25,6 +25,3 @@ WORKDIR /app
 
 COPY pyproject.toml poetry.lock /app/
 RUN poetry install --no-root
-
-WORKDIR /app/shared
-CMD ["poetry", "run", "python", "-m" "paperboy.main"]
