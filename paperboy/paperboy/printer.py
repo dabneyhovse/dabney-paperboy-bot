@@ -12,16 +12,19 @@ class Printer:
     location: str
 
     PRINTER_ALIAS = {
-        "Love": "😍 @ library",
-        "Hope": "😊 @ a7",
-        "Joy": "😄 @ cs lab",
-        "Peace": "🙂 @ cs lab",
-        "Apathy": "😶 @ lounge",
+        "Love": "😍 @ Library",
+        "Hope": "😊 @ A7",
+        "Joy": "😄 @ CS Lab",
+        "Peace": "🙂 @ CS Lab",
+        "Apathy": "😶 @ Lounge",
     }
 
-    def get_id(self) -> str:
+    def get_short_id(self) -> str:
         if self.name in self.PRINTER_ALIAS:
             return self.PRINTER_ALIAS[self.name]
+        return self.get_id()
+
+    def get_id(self) -> str:
         return f"{self.name} @ {self.location}"
 
 
@@ -36,9 +39,15 @@ class JobRequest:
         self.media = file
         self.name = name
 
+    def get_status(self) -> str:
+        printer_status = (
+            self.printer.get_id() if self.printer else "an unselected printer"
+        )
+        return f"You're printing {self.copies} copy(s) to {printer_status}. Modify your options below:"
+
     async def create_job(self) -> int:
         if not self.printer:
-            raise Exception("No printer selected")
+            raise Exception("no printer selected!")
 
         conn = cups.Connection()
         job_id = conn.createJob(self.printer.name, self.name, {})

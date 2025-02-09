@@ -12,7 +12,7 @@ from telegram.ext import (
     filters,
 )
 
-from paperboy.handlers.print import handle_print_request, handle_printer_selection
+from paperboy.handlers.print import handle_job_request, handle_job_request_callback
 from paperboy.handlers.start import handle_start
 
 load_dotenv()
@@ -36,10 +36,10 @@ async def post_init(app: Application) -> None:
     app.add_handler(
         MessageHandler(
             (filters.ChatType.PRIVATE | filters.Mention(me)),
-            handle_print_request,
+            handle_job_request,
         )
     )
-    app.add_handler(CallbackQueryHandler(handle_printer_selection))
+    app.add_handler(CallbackQueryHandler(handle_job_request_callback))
 
 
 def main() -> None:
