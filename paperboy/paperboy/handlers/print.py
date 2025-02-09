@@ -65,16 +65,14 @@ async def handle_job_request(
         return
     logging.info("Received job request from %s for %s", author, media.name)
 
-    print(msg, msg.id)
-    context.bot_data[msg.id] = job = JobRequest(
-        None, media, format_job_name(media, author)
-    )
+    job = JobRequest(None, media, format_job_name(media, author))
     reply_markup = generate_keyboard(job)
 
-    await msg.reply_text(
+    new_msg = await msg.reply_text(
         job.get_status(),
         reply_markup=reply_markup,
     )
+    context.bot_data[new_msg.id] = job
 
 
 async def handle_job_request_callback(
@@ -91,7 +89,6 @@ async def handle_job_request_callback(
 
     await query.answer()
 
-    print(msg, msg.message_id)
     req: JobRequest = context.bot_data.get(msg.message_id)  # type: ignore
 
     match callback_type:
