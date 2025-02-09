@@ -13,11 +13,11 @@ ENV POETRY_CACHE_DIR=/opt/.cache
 RUN pip install "poetry==${POETRY_VERSION}"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        build-essential \
-        git \
-        curl \
-        ca-certificates \
-        libcups2-dev \
+    build-essential \
+    git \
+    curl \
+    ca-certificates \
+    libcups2-dev \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -26,4 +26,5 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock /app/
 RUN poetry install --no-root
 
-CMD ["poetry", "run", "python", "/app/shared/paperboy/main.py"]
+WORKDIR /app/shared
+CMD ["poetry", "run", "python", "-m" "paperboy.main"]
