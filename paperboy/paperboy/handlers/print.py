@@ -68,6 +68,7 @@ async def handle_job_request(
     context.bot_data[msg.id] = job = JobRequest(
         None, media, format_job_name(media, author)
     )
+    print(msg.id)
 
     reply_markup = generate_keyboard(job)
 
@@ -91,12 +92,13 @@ async def handle_job_request_callback(
 
     await query.answer()
 
-    req: JobRequest = context.bot_data.get(msg.message_id)  # type: ignore
+    req: JobRequest = context.bot_data.get(msg.id)  # type: ignore
+    print(req)
 
     match callback_type:
         case JobRequestCallbackType.CANCEL:
             await query.delete_message()
-            context.bot_data.pop(query.message.message_id, None)
+            context.bot_data.pop(query.id, None)
             return
         case JobRequestCallbackType.SET_PRINTER:
             req.printer = args[0]
@@ -114,3 +116,5 @@ async def handle_job_request_callback(
                     f"Document sent to {req.printer.get_id()} successfully. The job ID is {job_id}."  # type: ignore
                 )
             )
+            return
+    await query.edit_message_text(req.get_status(), reply_markup=generate_keyboard(req))
