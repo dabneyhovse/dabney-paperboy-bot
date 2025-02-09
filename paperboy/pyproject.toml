@@ -4,8 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Sammy Hajhamid <sh@pepsi.pw>"]
 readme = "README.md"
-package-mode = false
-packages = [{ include = "paperboy" }]
+packages = [{ include = "**/*" }]
 
 [tool.poetry.dependencies]
 python = "^3.13"

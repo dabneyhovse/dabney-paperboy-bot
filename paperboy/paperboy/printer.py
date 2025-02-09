@@ -3,7 +3,7 @@ from http import HTTPStatus
 
 import cups
 
-from .media import Media
+from paperboy.media import Media
 
 
 @dataclass

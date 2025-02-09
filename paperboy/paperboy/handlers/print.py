@@ -3,8 +3,8 @@ import logging
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, User
 from telegram.ext import ContextTypes
 
-from ..media import Media, extract_media
-from ..printer import JobRequest, get_printers
+from paperboy.media import Media, extract_media
+from paperboy.printer import JobRequest, get_printers
 
 
 def format_job_name(media: Media, user: User) -> str:
