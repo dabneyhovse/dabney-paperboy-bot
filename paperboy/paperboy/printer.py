@@ -32,7 +32,7 @@ class JobRequest:
 
         if (
             conn.startDocument(
-                self.printer.name, job_id, self.name, "mime type here", True
+                self.printer.name, job_id, self.name, self.media.mime_type, True
             )
             != HTTPStatus.CONTINUE
         ):
