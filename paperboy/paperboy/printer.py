@@ -12,15 +12,17 @@ class Printer:
     location: str
 
     PRINTER_ALIAS = {
-        "Love": "😍",
-        "Hope": "😊",
-        "Joy": "😄",
-        "Peace": "🙂",
-        "Apathy": "😶",
+        "Love": "😍 @ library",
+        "Hope": "😊 @ a7",
+        "Joy": "😄 @ cs lab",
+        "Peace": "🙂 @ cs lab",
+        "Apathy": "😶 @ lounge",
     }
 
     def get_id(self) -> str:
-        return f"{self.PRINTER_ALIAS[self.name] if self.name in self.PRINTER_ALIAS else self.name}, {self.location}"
+        if self.name in self.PRINTER_ALIAS:
+            return self.PRINTER_ALIAS[self.name]
+        return f"{self.name} @ {self.location}"
 
 
 class JobRequest:
