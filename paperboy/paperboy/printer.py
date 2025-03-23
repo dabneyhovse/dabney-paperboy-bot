@@ -12,10 +12,10 @@ class Printer:
     location: str
 
     PRINTER_ALIAS = {
-        "Love": "😍 @ Library",
+        "Love": "❤️ @ Library",
         "Hope": "😊 @ A7",
         "Joy": "😄 @ CS Lab",
-        "Peace": "🙂 @ CS Lab",
+        "Peace": "☮️ @ CS Lab",
         "Apathy": "😶 @ Lounge",
     }
 
